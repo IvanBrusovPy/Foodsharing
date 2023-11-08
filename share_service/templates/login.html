@@ -1,0 +1,126 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+<div class="main" id="main">
+  <div class="box">
+    <div class="inner-box">
+      <div class="forms-wrap">
+        <form action="/login/" class="sign-in-form" method="post" onsubmit="return validateSignInform()"> {% csrf_token %} <div class="logo">
+            <img src="{% static 'img/logo.png' %}" alt="">
+            <h3>LinkEat In</h3>
+          </div>
+          <div class="heading">
+            <h2>Welcome back</h2>
+            <h6>Not registered yet? <a href="#" class="toggle" onclick="resetForm(0)">Sign up</a>
+            </h6>
+          </div>
+          <div class="actual-form">
+            <div class="input-wrap">
+              <input type="text" autocomplete="new-password" class="input-field" id="login" name="username" />
+              <label>Login</label>
+              <div class="error"></div>
+            </div>
+            <div class="input-wrap">
+              <input type="password" autocomplete="new-password" class="input-field" id="password" name="password" />
+              <label>Password</label>
+              <div class="error"></div>
+            </div>
+              <button class="sign-btn" type="submit">Sign in</button>
+            <p class="text"> Forgot your password or your login details? <a href="#">Get help</a> signing in </p>
+          </div>
+        </form>
+        <form action="/register/" class="sign-up-form" id="sign-up-form" method="post" onsubmit="return validateSignUpForm()"> {% csrf_token %} <div class="heading">
+            <h2>Get started</h2>
+            <h6>Already have an account? <a href="#" class="toggle">Sign in</a>
+            </h6>
+          </div>
+          <div class="actual-form">
+            <div class="tab">
+              <div class="radio-group">
+                <div class="radio-wrap">
+                  <input type="radio" name="user_type" value="customer" id="user_type" />
+                  <label class="radio-label">Eat</label>
+                </div>
+                <div class="radio-wrap">
+                  <input type="radio" name="user_type" value="manager" id="user_type" checked />
+                  <label class="radio-label">Sell</label>
+                </div>
+              </div>
+              <div class="input-wrap">
+                <input type="text" autocomplete="new-password" id="firstname" class="input-field" name="first_name" />
+                <label>Name</label>
+                <div class="error"></div>
+              </div>
+              <div class="input-wrap">
+                <input type="text" autocomplete="new-password" id="username" class="input-field" name="username" />
+                <label>Login</label>
+                <div class="error"></div>
+              </div>
+              <div class="input-wrap">
+                <input type="password" autocomplete="new-password" id="password1" class="input-field" name="password1" />
+                <label>Password</label>
+                <div class="error"></div>
+              </div>
+              <div class="input-wrap">
+                <input type="password" autocomplete="new-password" id="password2" class="input-field" name="password2" />
+                <label>Confirm your password</label>
+                <div class="error"></div>
+              </div>
+            </div>
+            <div class="tab">
+              <div class="back">
+                <a href="#" onclick="nextPrevTab(-1)" style="text-decoration: none">
+                  <h5>Back</h5>
+                </a>
+              </div>
+              <div class="visible manager" id="cafe-info">
+                <div class="input-wrap">
+                  <input type="text" class="input-field" name="cafe_name" id="cafe_name" />
+                  <label>Cafe name</label>
+                  <div class="error"></div>
+                </div>
+                <div class="input-wrap">
+                  <input type="text" class="input-field" name="city" id="city" />
+                  <label>City</label>
+                  <div class="error"></div>
+                </div>
+                <div class="input-wrap">
+                  <input type="text" id="cafe_address" class="input-field" name="cafe_address" />
+                  <label>Address</label>
+                  <div class="error"></div>
+                </div>
+              </div>
+              <div class="input-wrap" id="user-city">
+                <select name="user_city" class="input-field active"> {% for city in city_list %} <option value="{{city.name}}"> {{city.name}}</option> {% endfor %} </select>
+                <label for="user_city">Choose your city</label>
+              </div>
+              <div class="input-wrap">
+                <input type="tel" minlength="4" class="input-field" name="phone" id="phone" />
+                <label>Phone</label>
+                <div class="error"></div>
+              </div>
+            </div>
+            <button class="sign-btn" id="sign-up-btn" type="button" onclick="nextPrevTab(1)">Next</button>
+            <p class="text"> By signing up I agree to the <a href="#">Terms of Services</a> and <a href="#">Privacy Policy</a>. </p>
+          </div>
+        </form>
+      </div>
+      <div class="carousel">
+        <div class="image-wrapper">
+          <img src="{% static 'img/image_1.png' %}" class="image img-1 show" alt="">
+        </div>
+        <div class="text-slider">
+          <div class="text-wrap">
+            <div class="text-group">
+              <h2>Save food</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/tabs.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script> {% csrf_token %} <script>
+  let CSRF_TOKEN = '{{ csrf_token }}';
+</script> {% endblock %}

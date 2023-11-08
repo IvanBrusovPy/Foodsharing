@@ -1,0 +1,121 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link href='https://unpkg.com/css.gg@2.0.0/icons/css/check-o.css' rel='stylesheet'>
+<div class="container-fluid d-flex justify-content-center" id="popup">
+  <div class="offer-form-wrapper">
+    <a onclick="toggleBlur()" class="close">
+      <i class="gg-close"></i>
+    </a>
+    <form action="/create_offer/" autocomplete="off" method="post"> {% csrf_token %} <title>New offer</title>
+      <div class="input-wrap">
+        <input type="text" name="name" class="input-field">
+        <label for="name">Offer name</label>
+        <div class="error"></div>
+      </div>
+      <div class="input-wrap">
+        <input type="text" name="description" class="input-field" placeholder="Describe ingredients...">
+        <label for="description">Description</label>
+        <div class="error"></div>
+      </div>
+      <div class="input-wrap">
+        <input type="text" name="price" class="input-field">
+        <label for="price">Price, ₴</label>
+        <div class="error"></div>
+      </div>
+      <div class="input-wrap quantity-field">
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" min="1" value="1">
+      </div>
+      <div class="input-wrap quantity-field">
+        <label for="pick_up_time">Pick-up time</label>
+        <input type="time" name="pick_up_time">
+      </div>
+      <div class="input-wrap quantity-field">
+        <label for="book_time">Book time</label>
+        <input type="time" name="book_time">
+      </div>
+      <button type="submit" class="btn">Create offer</button>
+    </form>
+  </div>
+</div>
+<div class="container-fluid" id="content">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand logo-text" href="#">LinkEat In</a>
+        <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+          <li class="nav-item d-flex ">
+            <button type="button" class="create-offer-btn btn" onclick="toggleBlur()">New Offer</button>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <span class="navbar-text mx-4"> Hello, <span>{{ cafe_name }}</span>
+          </span>
+          <li class="nav-item">
+            <form action="/logout/">
+              <button type="submit" class="btn btn-outline-primary">Logout</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid mt-5">
+    <div class="row d-flex justify-content-md-center ">
+      <div class="col-md-4 col-sm-12">
+        <div class="container">
+          <div class="text-center mb-4">
+            <h2>Active offers</h2>
+          </div>
+          <div class="offers"> {% if offers %} {% for offer in offers %} <div class="card-wrapper">
+              <div class="card mb-5">
+                <h5 class="card-header">Offer name: <span>{{ offer.name }}</span>
+                </h5>
+                <div class="card-body">
+                  <p class="card-text">Description: <span>{{ offer.description }}</span>
+                  </p>
+                  <p class="card-text">Price <span>{{ offer.price }}</span> ₴ </p>
+                  <p class="card-text">Available: <span>{{ offer.quantity }}</span> portions </p>
+                </div>
+                <div class="card-footer bg-transparent">Book time: <span>{{ offer.book_time }}</span> Pickup time: <span>{{ offer.pick_up_time }}</span>
+                </div>
+              </div>
+            </div> {% endfor %} {% else %} <div class="empty-card card mb-5 p-2" style="height: 10rem">
+              <div class="empty-card-inner card-body text-center ">
+                <h4 class="my-3 card-text">No offers yet</h4>
+                <button type="button" class="create-offer-btn btn mx-2" onclick="toggleBlur()">Create Offer</button>
+              </div>
+            </div> {%endif %} </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12 mb-5">
+        <div class="container">
+          <div class="text-center mb-4">
+            <h2>My Orders</h2>
+          </div> {% if orders %} {% for order in orders %} {% if order.status == "In progress" %} <form action="/pack_order/" id="pack_order" method="post"> {% csrf_token %} <input type="hidden" name="order_id" value={{ order.id }} />
+            <i class="gg-check-o book-icon" onclick="packOrder()"></i>
+          </form> {% endif %} <div class="card mb-5">
+            <h5 class="card-header">Order name: <span>{{ order.offer.name }}</span>
+            </h5>
+            <div class="card-body">
+              <p class="card-text">Customer: <span>{{ order.customer.user.first_name }}</span>, &nbsp; <span>{{ order.customer.phone }}</span>
+              </p>
+              <p class="card-text">Total: <span class="fw-bolder">{{ order.total }}</span> ₴ &nbsp;&nbsp;&nbsp; Portions: <span>{{ order.quantity }}</span>
+              </p>
+            </div>
+            <div class="card-footer bg-transparent"> Pickup time: <span>{{ order.offer.pick_up_time }}</span>&nbsp;&nbsp;&nbsp;Status: <span>{{ order.status }}</span>
+            </div>
+          </div> {% endfor %} {% else %} <div class="empty-card card mb-5 p-2" style="height: 10rem">
+            <div class="empty-card-inner card-body text-center ">
+              <h4 class="my-3 card-text">No orders</h4>
+            </div>
+          </div> {%endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'js/cafe_home.js' %}"></script> {% endblock %}
