@@ -1,0 +1,223 @@
+
+:root {
+  --main-bg-color: #F9F9F9;
+  --primary-color: #8ECEA8;
+  --secondary-color: #26537f;
+  --neutral: #a39d9d;
+  --black: #04151F;
+  --white: #ffffff;
+  --accent-color: #A6BBE0
+}
+body{
+  background-color: var(--main-bg-color);
+}
+
+.card{
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 1rem;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.navbar{
+  background-color: var(--white);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  height: 5rem;
+}
+
+.create-offer-btn{
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+
+}
+
+.create-offer-btn:hover{
+  background-color: var(--accent-color);
+   color: white;
+}
+
+.create-offer-btn:focus{
+  outline: none;
+
+}
+
+.btn-outline-primary{
+    border-color: var(--secondary-color) !important;
+    color: var(--black);
+}
+
+.btn-outline-primary:hover{
+    background-color: var(--secondary-color) !important;
+    color: var(--white);
+}
+
+.logo-text{
+  cursor:default;
+}
+
+.blur{
+  filter: blur(20px);
+  pointer-events: none;
+  user-select: none;
+}
+
+#popup{
+    height: 100%;
+ /*background-color: #A6BBE0;*/
+    position: absolute;
+  visibility: hidden;
+  opacity: 0;
+
+}
+
+ #popup.active{
+  visibility: visible;
+  opacity: 1;
+}
+
+.offer-form-wrapper{
+  align-self: center;
+  z-index: 10000;
+  max-width: 360px;
+  width: 30vw;
+  margin: 0 auto;
+  height: max-content;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: white;
+  display: flex;
+  border-radius: 2rem;
+  padding: 2rem;
+}
+
+
+.input-wrap{
+  position: relative;
+  height: 37px;
+  margin-bottom: 2rem;
+}
+
+.input-wrap form{
+  width: 200%;
+}
+
+.input-field{
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  background: none;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--primary-color);
+  padding: 0;
+  font-size: 0.95rem !important;
+  transition: 0.1s;
+}
+
+label{
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: var(--neutral);
+  pointer-events: none;
+  transition: 0.4s;
+}
+
+.quantity-field label{
+  transform: translateY(-10%);
+  font-size: 0.95rem;
+  color: var(--neutral);
+  pointer-events: none;
+}
+
+.quantity-field input {
+  width: 5rem;
+  margin-left: 1rem;
+}
+
+.close{
+  margin-bottom: 2rem;
+  margin-left: 90%;
+  color: var(--primary-color);
+}
+
+.close i:hover{
+  cursor: pointer;
+  color: var(--secondary-color)
+}
+
+.offer-form-wrapper .btn{
+  background-color: var(--primary-color);
+  color: white;
+  width: 50%;
+  margin-left: 25%;
+  align-self: center;
+
+}
+
+.offer-form-wrapper .btn:hover {
+  background-color: var(--accent-color);
+}
+
+.empty-card{
+   box-shadow: 12px 12px 24px 0 rgba(0, 0, 0, 0.2),
+    -12px -12px 24px 0 rgba(255, 255, 255, 0.5);
+    color: var(--secondary-color);
+}
+
+.empty-card-inner{
+  border-radius: 10px;
+}
+
+.city-label{
+  font-size: 0.8rem;
+  position: absolute;
+  /*left: -8rem;*/
+  top:-25%;
+}
+
+.book-icon{
+  position: relative;
+  top: 2rem;
+  left: 90%;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  z-index: 100;
+}
+
+.book-icon:hover{
+  background: var(--white);
+  color: var(--primary-color);
+}
+
+.card-overlay{
+  background-color: #8ECEA8;
+  z-index: 101;
+  height: 100%;
+  width: 100%;
+}
+
+.input-quantity{
+  position: relative;
+  top: 3.55rem;
+  z-index: 100;
+  left: 70%;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--primary-color);
+  background: none;
+  width: 3rem;
+  font-weight: bolder;
+}
+
+.pick-up-text{
+  position: absolute;
+ left: 69vw;
+ z-index: 100;
+  margin-top: 1.8rem
+}
